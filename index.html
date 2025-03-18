@@ -6,27 +6,215 @@
     <title>AI Chat Assistant</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Nastaliq+Urdu&family=Noto+Sans+JP&family=Noto+Sans+SC&family=Noto+Sans+Arabic&family=Noto+Sans+Devanagari&family=Noto+Sans+Hebrew&family=Noto+Sans+KR&family=Noto+Sans+Thai&display=swap" rel="stylesheet">
+    <meta name="description" content="AI Chat Assistant with multilingual support">
+    <meta name="theme-color" content="#6366f1">
 </head>
 <body>
-    <div class="chat-container">
-        <div class="chat-header">
-            <h2>AI Assistant</h2>
-            <div class="status-indicator">
-                <span class="status-dot"></span>
-                <span class="status-text">Online</span>
+    <div class="robot-container">
+        <div class="agent-head">
+            <div class="agent-face">
+                <div class="agent-antenna"></div>
+                <div class="agent-eyes">
+                    <div class="eye left"></div>
+                    <div class="eye right"></div>
+                </div>
+                <div class="agent-mouth"></div>
             </div>
         </div>
-        <div class="chat-box" id="chat-box">
-            <!-- Chat messages will be dynamically added here -->
+        
+        <div class="agent-body-container">
+            <div class="agent-neck"></div>
+            <div class="agent-core"></div>
+            
+            <div class="chat-container">
+                <div class="chat-header">
+                    <h2 id="title">AI Assistant</h2>
+                    <div class="status-text" id="online-status">Online</div>
+                </div>
+                
+                <!-- Controls Container -->
+                <div class="controls-container">
+                    <!-- Theme Dropdown -->
+                    <div class="dropdown theme-dropdown">
+                        <button class="dropdown-toggle" id="theme-toggle" aria-label="Change theme">
+                            <i class="fas fa-palette"></i>
+                            <span class="current-theme">Light</span>
+                        </button>
+                        <div class="dropdown-menu" id="theme-menu" role="menu">
+                            <div class="dropdown-item" data-theme="light" role="menuitem" tabindex="0">
+                                <i class="fas fa-sun"></i>
+                                <span>Light</span>
+                            </div>
+                            <div class="dropdown-item" data-theme="night" role="menuitem" tabindex="0">
+                                <i class="fas fa-moon"></i>
+                                <span>Night</span>
+                            </div>
+                            <div class="dropdown-item" data-theme="desert" role="menuitem" tabindex="0">
+                                <i class="fas fa-mosque"></i>
+                                <span>Desert</span>
+                            </div>
+                            <div class="dropdown-item" data-theme="emerald" role="menuitem" tabindex="0">
+                                <i class="fas fa-gem"></i>
+                                <span>Emerald</span>
+                            </div>
+                            <div class="dropdown-item" data-theme="azure" role="menuitem" tabindex="0">
+                                <i class="fas fa-tint"></i>
+                                <span>Azure</span>
+                            </div>
+                            <div class="dropdown-item" data-theme="ramadan" role="menuitem" tabindex="0">
+                                <i class="fas fa-star-and-crescent"></i>
+                                <span>Ramadan</span>
+                            </div>
+                            <div class="dropdown-item" data-theme="calligraphy" role="menuitem" tabindex="0">
+                                <i class="fas fa-pen-fancy"></i>
+                                <span>Calligraphy</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Language Dropdown -->
+                    <div class="dropdown lang-dropdown">
+                        <button class="dropdown-toggle" id="lang-toggle" aria-label="Change language">
+                            <i class="fas fa-globe"></i>
+                            <span class="current-lang">EN</span>
+                        </button>
+                        <div class="dropdown-menu" id="lang-menu" role="menu">
+                            <div class="dropdown-item" data-lang="en" role="menuitem" tabindex="0">
+                                <span>English</span>
+                                <span class="lang-code">EN</span>
+                            </div>
+                            <div class="dropdown-item" data-lang="es" role="menuitem" tabindex="0">
+                                <span>Español</span>
+                                <span class="lang-code">ES</span>
+                            </div>
+                            <div class="dropdown-item" data-lang="fr" role="menuitem" tabindex="0">
+                                <span>Français</span>
+                                <span class="lang-code">FR</span>
+                            </div>
+                            <div class="dropdown-item" data-lang="de" role="menuitem" tabindex="0">
+                                <span>Deutsch</span>
+                                <span class="lang-code">DE</span>
+                            </div>
+                            <div class="dropdown-item" data-lang="zh" role="menuitem" tabindex="0">
+                                <span>中文</span>
+                                <span class="lang-code">ZH</span>
+                            </div>
+                            <div class="dropdown-item" data-lang="ja" role="menuitem" tabindex="0">
+                                <span>日本語</span>
+                                <span class="lang-code">JA</span>
+                            </div>
+                            <div class="dropdown-item" data-lang="hi" role="menuitem" tabindex="0">
+                                <span>हिन्दी</span>
+                                <span class="lang-code">HI</span>
+                            </div>
+                            <div class="dropdown-item" data-lang="ru" role="menuitem" tabindex="0">
+                                <span>Русский</span>
+                                <span class="lang-code">RU</span>
+                            </div>
+                            <div class="dropdown-item" data-lang="pt" role="menuitem" tabindex="0">
+                                <span>Português</span>
+                                <span class="lang-code">PT</span>
+                            </div>
+                            <div class="dropdown-item" data-lang="tr" role="menuitem" tabindex="0">
+                                <span>Türkçe</span>
+                                <span class="lang-code">TR</span>
+                            </div>
+                            <div class="dropdown-item" data-lang="it" role="menuitem" tabindex="0">
+                                <span>Italiano</span>
+                                <span class="lang-code">IT</span>
+                            </div>
+                            <div class="dropdown-item" data-lang="ar" role="menuitem" tabindex="0">
+                                <span>العربية</span>
+                                <span class="lang-code">AR</span>
+                            </div>
+                            <div class="dropdown-item" data-lang="ur" role="menuitem" tabindex="0">
+                                <span>اردو</span>
+                                <span class="lang-code">UR</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="chat-toolbar">
+                    <button class="toolbar-btn" id="clear-chat-btn" aria-label="Clear chat">
+                        <i class="fas fa-trash-alt"></i>
+                        <span class="tooltip">Clear chat</span>
+                    </button>
+                    <button class="toolbar-btn" id="export-chat-btn" aria-label="Export chat">
+                        <i class="fas fa-download"></i>
+                        <span class="tooltip">Export chat</span>
+                    </button>
+                    <button class="toolbar-btn" id="auto-translate-btn" aria-label="Auto translate">
+                        <i class="fas fa-language"></i>
+                        <span class="tooltip">Auto translate</span>
+                    </button>
+                </div>
+                
+                <div class="chat-box" id="chat-box" aria-live="polite">
+                    <div class="typing-indicator" id="typing-indicator" style="display: none;">
+                        <div class="typing-dot"></div>
+                        <div class="typing-dot"></div>
+                        <div class="typing-dot"></div>
+                    </div>
         </div>
+                
         <div class="chat-input">
-            <input type="text" id="user-input" placeholder="Type your message..." autocomplete="off">
-            <button id="send-btn" onclick="sendMessage()">
+                    <input type="text" id="user-input" placeholder="Type your message..." autocomplete="off" aria-label="Message input">
+                    <button class="voice-button" id="voice-btn" title="Voice Input" aria-label="Voice input">
+                        <i class="fas fa-microphone"></i>
+                    </button>
+                    <button id="send-btn" title="Send Message" aria-label="Send message">
                 <i class="fas fa-paper-plane"></i>
             </button>
+                </div>
+                
+                <div class="feature-indicators">
+                    <div class="feature-indicator" id="translation-active" style="display: none;">
+                        <i class="fas fa-language"></i>
+                        <span>Auto-translation active</span>
+                    </div>
+                    <div class="feature-indicator" id="voice-detection-active" style="display: none;">
+                        <i class="fas fa-microphone-alt"></i>
+                        <span>Voice detection active</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="app-info">
+                <span class="version">v1.2.0</span>
+                <a href="#" id="about-link">About</a>
+                <a href="#" id="help-link">Help</a>
+            </div>
+            
+            <!-- Modal for about/help information -->
+            <div class="modal" id="info-modal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 id="modal-title">About AI Assistant</h3>
+                        <button class="close-modal" id="close-modal">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <div class="modal-body" id="modal-body">
+                        <!-- Content will be populated dynamically -->
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
+    <!-- Add tech background elements -->
+    <div class="tech-background">
+        <div class="tech-line" style="top: 10%; left: 5%; width: 80px;"></div>
+        <div class="tech-line" style="top: 25%; right: 10%; width: 120px;"></div>
+        <div class="tech-line" style="bottom: 15%; left: 20%; width: 60px;"></div>
+        <div class="tech-dot" style="top: 15%; right: 25%;"></div>
+        <div class="tech-dot" style="top: 40%; left: 15%;"></div>
+        <div class="tech-dot" style="bottom: 30%; right: 35%;"></div>
+    </div>
+
+    <script src="languages.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
