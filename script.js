@@ -8,6 +8,10 @@ let timer;
 let isAutoTranslateEnabled = localStorage.getItem('autoTranslate') === 'true' || false;
 let isSpeakEnabled = localStorage.getItem('speakEnabled') === 'true' || false;
 
+// Add backend API URL
+const API_URL = 'http://localhost:3000/api';
+let isBackendAvailable = true;
+
 // DOM elements
 const themeSelect = document.getElementById('theme-toggle');
 const languageSelect = document.getElementById('lang-toggle');
@@ -28,12 +32,14 @@ document.body.appendChild(voiceDetected);
 
 // Initialize the app
 function initApp() {
+    console.log('Initializing app with theme:', theme, 'language:', lang);
+    
     // Set initial language and theme
     updateLanguage(lang);
     updateTheme(theme);
     
-    // Create welcome message
-    createMessage(languages[lang].welcome, 'bot');
+    // Start checking backend availability
+    startBackendAvailabilityCheck();
     
     // Set up event listeners
     setupEventListeners();
@@ -419,12 +425,7 @@ function setupToolbarButtons() {
     // Clear chat button
     const clearChatBtn = document.getElementById('clear-chat-btn');
     if (clearChatBtn) {
-        clearChatBtn.addEventListener('click', () => {
-            // Clear all messages except the welcome message
-            while (chatContainer.children.length > 1) {
-                chatContainer.removeChild(chatContainer.lastChild);
-            }
-        });
+        clearChatBtn.addEventListener('click', clearChat);
     }
     
     // Export chat button
@@ -564,27 +565,101 @@ function showDetectedLanguage(detectedLang) {
     }, 3000);
 }
 
-// Send message
+// Send message to backend with fallback
+function sendMessageToBackend(message) {
+    if (!isBackendAvailable) {
+        // Use local fallback if backend is unavailable
+        generateLocalBotResponse(message);
+        return;
+    }
+    
+    // Try to send to backend
+    fetch(`${API_URL}/chat`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            message,
+            sender: 'user',
+            language: lang
+        })
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Backend error');
+        }
+        return response.json();
+    })
+    .then(data => {
+        // Display the bot's response
+        if (data.message && data.message.text) {
+            createMessage(data.message.text, 'bot', false);
+        }
+    })
+    .catch(error => {
+        console.error('Error sending message to server:', error);
+        // Set backend as unavailable for future requests
+        isBackendAvailable = false;
+        // Use local fallback
+        generateLocalBotResponse(message);
+    });
+}
+
+// Load chat history from backend with fallback
+function loadChatHistory() {
+    fetch(`${API_URL}/chat`)
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Backend error');
+        }
+        return response.json();
+    })
+    .then(data => {
+        // Only clear and repopulate if we got a valid response
+        if (Array.isArray(data) && data.length > 0) {
+            // Clear current chat display
+            chatContainer.innerHTML = '';
+            
+            // Add each message to the UI
+            data.forEach(msg => {
+                createMessage(msg.text, msg.sender, false); // Don't save to backend
+            });
+        } else {
+            // If empty history, create welcome message
+            createMessage(languages[lang].welcome, 'bot', false);
+        }
+    })
+    .catch(error => {
+        console.error('Error loading chat history:', error);
+        // Set backend as unavailable for future requests
+        isBackendAvailable = false;
+        // Create welcome message as fallback
+        createMessage(languages[lang].welcome, 'bot', false);
+    });
+}
+
+// Send message (updated to handle hybrid approach)
 function sendMessage() {
     const message = messageInput.value.trim();
     
     if (message) {
-        // Create user message
-        createMessage(message, 'user');
+        // Create user message and show in UI
+        createMessage(message, 'user', isBackendAvailable);
         
         // Clear input
         messageInput.value = '';
         
-        // Simulate bot response (In a real app, this would call an API)
-        setTimeout(() => {
-            const botResponse = `${languages[lang].welcome}`;
-            createMessage(botResponse, 'bot');
-        }, 1000);
+        // If backend is not available, generate response locally
+        if (!isBackendAvailable) {
+            generateLocalBotResponse(message);
+        }
+        // Otherwise, the response will come from the backend via sendMessageToBackend
     }
 }
 
-// Create message element
-function createMessage(text, sender) {
+// Create message element with option to skip backend saving
+function createMessage(text, sender, saveToBackend = true) {
     const messageElement = document.createElement('div');
     messageElement.className = `message ${sender}-message`;
     messageElement.textContent = text;
@@ -624,12 +699,54 @@ function createMessage(text, sender) {
         messageElement.appendChild(speakMessageBtn);
     }
     
+    // Add offline indicator if backend is unavailable
+    if (!isBackendAvailable && sender === 'bot') {
+        const offlineIndicator = document.createElement('span');
+        offlineIndicator.className = 'offline-indicator';
+        offlineIndicator.innerHTML = '<i class="fas fa-cloud-slash"></i>';
+        offlineIndicator.title = 'Generated offline';
+        messageElement.appendChild(offlineIndicator);
+    }
+    
     chatContainer.appendChild(messageElement);
     chatContainer.scrollTop = chatContainer.scrollHeight;
     
     // Speak bot messages automatically if enabled
     if (sender === 'bot' && isSpeakEnabled) {
         speakText(text, lang);
+    }
+    
+    // Save message to backend if it's a user message and we should save
+    if (sender === 'user' && saveToBackend && isBackendAvailable) {
+        sendMessageToBackend(text);
+    }
+}
+
+// Clear chat history (both locally and on the server)
+function clearChat() {
+    // Clear UI
+    chatContainer.innerHTML = '';
+    
+    // If backend is available, clear server history too
+    if (isBackendAvailable) {
+        fetch(`${API_URL}/chat`, {
+            method: 'DELETE'
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Chat history cleared:', data);
+            // Add welcome message back
+            createMessage(languages[lang].welcome, 'bot', false);
+        })
+        .catch(error => {
+            console.error('Error clearing chat history:', error);
+            isBackendAvailable = false;
+            // Add welcome message back
+            createMessage(languages[lang].welcome, 'bot', false);
+        });
+    } else {
+        // Add welcome message back even if backend is unavailable
+        createMessage(languages[lang].welcome, 'bot', false);
     }
 }
 
@@ -760,6 +877,103 @@ function getHelpContent() {
         <h4>Auto-Translation</h4>
         <p>Enable auto-translation to automatically translate messages between languages.</p>
     `;
+}
+
+// Function to check if backend is available
+function checkBackendAvailability() {
+    return fetch(`${API_URL}/chat`)
+        .then(response => {
+            return response.ok;
+        })
+        .catch(error => {
+            console.log('Backend unavailable:', error);
+            return false;
+        })
+        .finally(() => {
+            updateConnectionStatus();
+        });
+}
+
+// Update connection status indicator
+function updateConnectionStatus() {
+    const statusElement = document.getElementById('connection-status');
+    if (!statusElement) return;
+    
+    if (isBackendAvailable) {
+        statusElement.classList.remove('offline');
+        statusElement.innerHTML = '<i class="fas fa-wifi"></i><span>Connected</span>';
+    } else {
+        statusElement.classList.add('offline');
+        statusElement.innerHTML = '<i class="fas fa-cloud-slash"></i><span>Offline</span>';
+    }
+}
+
+// Start checking backend availability
+function startBackendAvailabilityCheck() {
+    // Check immediately
+    checkBackendAvailability()
+        .then(available => {
+            isBackendAvailable = available;
+            console.log('Backend available:', isBackendAvailable);
+            
+            if (isBackendAvailable) {
+                // Load chat history from backend if available
+                loadChatHistory();
+            } else {
+                // Create welcome message if backend is not available
+                createMessage(languages[lang].welcome, 'bot', false);
+            }
+        });
+    
+    // Then check every 30 seconds
+    setInterval(() => {
+        checkBackendAvailability().then(available => {
+            // If backend just became available and wasn't before
+            if (available && !isBackendAvailable) {
+                isBackendAvailable = true;
+                console.log('Backend connection restored');
+                
+                // Optionally reload chat history when backend becomes available again
+                // Uncomment the following line if you want to reload history when backend reconnects
+                // loadChatHistory();
+            } else if (!available && isBackendAvailable) {
+                isBackendAvailable = false;
+                console.log('Backend connection lost');
+            } else {
+                isBackendAvailable = available;
+            }
+        });
+    }, 30000);
+}
+
+// Generate a local bot response when backend is unavailable
+function generateLocalBotResponse(message) {
+    // Local fallback logic similar to backend's generateBotResponse
+    const lowerMessage = message.toLowerCase();
+    let botResponse = '';
+    
+    if (lowerMessage.includes('hello') || lowerMessage.includes('hi') || lowerMessage.includes('hey')) {
+        botResponse = "Hello! How can I help you today?";
+    } else if (lowerMessage.includes('how are you')) {
+        botResponse = "I'm doing well, thank you for asking! How can I assist you?";
+    } else if (lowerMessage.includes('help')) {
+        botResponse = "I'd be happy to help! You can ask me about this AI assistant, its features, or how to use it.";
+    } else if (lowerMessage.includes('feature') || lowerMessage.includes('can you do')) {
+        botResponse = "This AI assistant supports multiple languages, voice input, text-to-speech, and various themes. What would you like to know more about?";
+    } else if (lowerMessage.includes('language') || lowerMessage.includes('translate')) {
+        botResponse = "I support 13 languages including English, Spanish, French, German, Chinese, Japanese, Hindi, Russian, Portuguese, Turkish, Italian, Arabic, and Urdu. You can change the language using the language dropdown.";
+    } else if (lowerMessage.includes('theme') || lowerMessage.includes('color') || lowerMessage.includes('dark mode')) {
+        botResponse = "You can choose from 7 different themes: Light, Night, Desert, Emerald, Azure, Ramadan, and Calligraphy. Just click the theme button in the toolbar to change it.";
+    } else if (lowerMessage.includes('voice') || lowerMessage.includes('speak') || lowerMessage.includes('talk')) {
+        botResponse = "You can use voice input by clicking the microphone button. I can also read messages aloud if you enable the text-to-speech feature by clicking the speaker button.";
+    } else {
+        botResponse = "I'm currently running in offline mode, but I understand your message. Is there anything specific you'd like to know about this AI assistant?";
+    }
+    
+    // Add a slight delay to simulate processing time
+    setTimeout(() => {
+        createMessage(botResponse, 'bot', false);
+    }, 500);
 }
 
 // Initialize the app when the DOM is loaded

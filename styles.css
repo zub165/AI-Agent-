@@ -516,27 +516,32 @@ body {
 
 /* Chat Header */
 .chat-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
     background: var(--primary-gradient);
-    padding: 20px 24px;
-    text-align: center;
-    color: white;
-    position: relative;
+    color: #fff;
+    border-radius: var(--border-radius-md) var(--border-radius-md) 0 0;
 }
 
 .chat-header h2 {
-    font-size: 1.75rem;
-    font-weight: 700;
-    margin-bottom: 4px;
-    letter-spacing: -0.01em;
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.status-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 .status-text {
-    font-size: 0.9rem;
-    opacity: 0.9;
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 6px;
+    font-size: 0.875rem;
+    font-weight: 500;
 }
 
 .status-text::before {
@@ -544,9 +549,16 @@ body {
     display: inline-block;
     width: 8px;
     height: 8px;
-    background-color: var(--success-color);
+    margin-right: 6px;
+    background-color: #10b981;
     border-radius: 50%;
+    box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.3);
     animation: pulse 2s infinite;
+}
+
+[dir="rtl"] .status-text::before {
+    margin-right: 0;
+    margin-left: 6px;
 }
 
 /* Controls Container */
@@ -1565,4 +1577,42 @@ html[lang="ur"] .message {
 /* Feature indicators for speech */
 #speak-active i {
     animation: speakPulse 2s infinite;
+}
+
+/* Offline indicator for messages generated without backend */
+.offline-indicator {
+    position: absolute;
+    right: 40px;
+    bottom: 10px;
+    font-size: 12px;
+    color: var(--warning-color);
+    opacity: 0.7;
+}
+
+[dir="rtl"] .offline-indicator {
+    right: auto;
+    left: 40px;
+}
+
+/* Connection status indicator in the header */
+.connection-status {
+    display: inline-flex;
+    align-items: center;
+    margin-left: 8px;
+    font-size: 12px;
+    color: var(--text-color);
+    opacity: 0.7;
+}
+
+.connection-status.offline {
+    color: var(--warning-color);
+}
+
+.connection-status i {
+    margin-right: 4px;
+}
+
+[dir="rtl"] .connection-status i {
+    margin-right: 0;
+    margin-left: 4px;
 }
