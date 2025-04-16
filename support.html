@@ -3,27 +3,102 @@
 <head>
   <meta charset="UTF-8">
   <title>Support - AI Agent</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    body { font-family: Arial, sans-serif; background: #f5f5f5; padding: 20px; color: #333; }
-    h1 { color: #2d3e50; }
-    .contact-box { background: #fff; padding: 20px; border-radius: 8px; max-width: 600px; margin: auto; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f7fa;
+      padding: 20px;
+      color: #333;
+    }
+    .container {
+      max-width: 800px;
+      margin: auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.08);
+    }
+    h1, h2 {
+      color: #2d3e50;
+    }
+    p, li {
+      line-height: 1.6;
+    }
+    ul {
+      padding-left: 20px;
+    }
+    a {
+      color: #3b60d1;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    .section {
+      margin-bottom: 30px;
+    }
+    .footer {
+      text-align: center;
+      font-size: 0.9em;
+      color: #777;
+      margin-top: 40px;
+    }
   </style>
 </head>
 <body>
-  <div class="contact-box">
-    <h1>AI Agent - Support</h1>
-    <p>Thank you for using AI Agent. If you're experiencing issues, have suggestions, or need technical assistance, we’re here to help.</p>
+  <div class="container">
+    <h1>AI Agent - Support Center</h1>
+    <p>Welcome to the official support center for <strong>AI Agent</strong>, your intelligent healthcare assistant. Below you'll find everything you need to get help, report issues, and stay updated with the latest features.</p>
 
-    <h2>Contact Support</h2>
-    <ul>
-      <li><strong>Email:</strong> <a href="mailto:zub165@yahoo.com">zub165@yahoo.com</a></li>
-      <li><strong>GitHub Issues:</strong> <a href="https://github.com/zub165/aiagent-support/issues" target="_blank">Submit a bug report</a></li>
-    </ul>
+    <div class="section">
+      <h2>📩 Contact Support</h2>
+      <ul>
+        <li><strong>Email:</strong> <a href="mailto:zub165@yahoo.com">zub165@yahoo.com</a></li>
+        <li><strong>GitHub Issues:</strong> <a href="https://github.com/zub165/aiagent-support/issues" target="_blank">Submit a bug or feature request</a></li>
+      </ul>
+      <p><strong>Response time:</strong> Within 24–48 hours (Monday–Friday)</p>
+    </div>
 
-    <h2>Documentation & Resources</h2>
-    <p>You can view the API documentation and setup guide at <a href="https://zub165.github.io/aiagent-support" target="_blank">AI Agent Docs</a>.</p>
+    <div class="section">
+      <h2>📚 Documentation & Developer Resources</h2>
+      <p>Visit our full documentation site for API reference, setup instructions, and integration help:</p>
+      <ul>
+        <li><a href="https://zub165.github.io/aiagent-support" target="_blank">AI Agent Developer Docs</a></li>
+        <li><a href="https://github.com/zub165/aiagent-support" target="_blank">Source Code & Releases</a></li>
+      </ul>
+    </div>
 
-    <p>We typically respond to inquiries within 24–48 hours.</p>
+    <div class="section">
+      <h2>🔧 Troubleshooting</h2>
+      <p>Common issues and how to resolve them:</p>
+      <ul>
+        <li><strong>Can't connect to API:</strong> Ensure your endpoint is reachable and port 5002 is open.</li>
+        <li><strong>Invalid session ID:</strong> Always pass a unique <code>session_id</code> in your requests.</li>
+        <li><strong>No response from AI:</strong> Check for backend crashes or malformed JSON.</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>🧠 FAQs</h2>
+      <ul>
+        <li><strong>Is AI Agent a real doctor?</strong> No. AI Agent provides educational and assistive content, not medical diagnoses.</li>
+        <li><strong>Does AI Agent store my data?</strong> No, unless you're using a custom server integration.</li>
+        <li><strong>Can I use this app offline?</strong> Partial offline support is available for cached answers and local features.</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>📌 Current Version</h2>
+      <p><strong>App Version:</strong> 1.0.0<br>
+         <strong>Backend Version:</strong> 1.0.0<br>
+         <strong>Last Updated:</strong> April 16, 2025
+      </p>
+    </div>
+
+    <div class="footer">
+      &copy; 2025 AI Agent by Innovators Generation. All rights reserved.
+    </div>
   </div>
 </body>
 </html>
