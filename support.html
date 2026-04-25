@@ -1,104 +1,424 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Support - AI Agent</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f5f7fa;
-      padding: 20px;
-      color: #333;
-    }
-    .container {
-      max-width: 800px;
-      margin: auto;
-      background: #fff;
-      padding: 30px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.08);
-    }
-    h1, h2 {
-      color: #2d3e50;
-    }
-    p, li {
-      line-height: 1.6;
-    }
-    ul {
-      padding-left: 20px;
-    }
-    a {
-      color: #3b60d1;
-      text-decoration: none;
-    }
-    a:hover {
-      text-decoration: underline;
-    }
-    .section {
-      margin-bottom: 30px;
-    }
-    .footer {
-      text-align: center;
-      font-size: 0.9em;
-      color: #777;
-      margin-top: 40px;
-    }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <h1>AI Agent - Support Center</h1>
-    <p>Welcome to the official support center for <strong>AI Agent</strong>, your intelligent healthcare assistant. Below you'll find everything you need to get help, report issues, and stay updated with the latest features.</p>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Support • Medical Assistant</title>
+    <meta
+      name="description"
+      content="Support center for Medical Assistant — contact support, data deletion, app features, and platform links."
+    />
+    <style>
+      :root {
+        --bg1: #0b1220;
+        --bg2: #0f1a33;
+        --card: rgba(255, 255, 255, 0.08);
+        --card2: rgba(255, 255, 255, 0.06);
+        --text: #eef2ff;
+        --muted: rgba(238, 242, 255, 0.72);
+        --border: rgba(255, 255, 255, 0.14);
+        --brand: #7c3aed;
+        --brand2: #22c55e;
+        --danger: #ef4444;
+        --shadow: 0 18px 60px rgba(0, 0, 0, 0.35);
+        --radius: 18px;
+      }
 
-    <div class="section">
-      <h2>📩 Contact Support</h2>
-      <ul>
-        <li><strong>Email:</strong> <a href="mailto:zub165@yahoo.com">zub165@yahoo.com</a></li>
-        <li><strong>GitHub Issues:</strong> <a href="https://github.com/zub165/aiagent-support/issues" target="_blank">Submit a bug or feature request</a></li>
-      </ul>
-      <p><strong>Response time:</strong> Within 24–48 hours (Monday–Friday)</p>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto,
+          Arial, "Apple Color Emoji", "Segoe UI Emoji";
+        color: var(--text);
+        background: radial-gradient(
+            1200px 600px at 10% 20%,
+            rgba(124, 58, 237, 0.35),
+            transparent 60%
+          ),
+          radial-gradient(
+            900px 520px at 90% 25%,
+            rgba(34, 197, 94, 0.25),
+            transparent 55%
+          ),
+          linear-gradient(135deg, var(--bg1), var(--bg2));
+        min-height: 100vh;
+      }
+
+      a {
+        color: #c4b5fd;
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+
+      .wrap {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 26px 18px 52px;
+      }
+
+      .topbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 14px 14px;
+        border: 1px solid var(--border);
+        background: rgba(0, 0, 0, 0.18);
+        backdrop-filter: blur(10px);
+        border-radius: 14px;
+      }
+
+      .brand {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        font-weight: 800;
+        letter-spacing: 0.2px;
+      }
+
+      .logo {
+        width: 34px;
+        height: 34px;
+        border-radius: 10px;
+        background: linear-gradient(135deg, var(--brand), #2563eb);
+        box-shadow: 0 10px 30px rgba(124, 58, 237, 0.35);
+        display: grid;
+        place-items: center;
+        font-weight: 900;
+      }
+
+      .nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: flex-end;
+      }
+
+      .chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 12px;
+        border-radius: 999px;
+        border: 1px solid var(--border);
+        background: rgba(255, 255, 255, 0.06);
+        color: var(--text);
+        font-size: 13px;
+        font-weight: 650;
+        white-space: nowrap;
+      }
+
+      .hero {
+        margin-top: 18px;
+        padding: 22px;
+        border-radius: var(--radius);
+        border: 1px solid var(--border);
+        background: linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.09),
+          rgba(255, 255, 255, 0.06)
+        );
+        box-shadow: var(--shadow);
+      }
+
+      .hero h1 {
+        margin: 0 0 10px;
+        font-size: clamp(22px, 3.2vw, 38px);
+        line-height: 1.15;
+      }
+      .hero p {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.6;
+        font-size: 15.5px;
+      }
+
+      .grid {
+        margin-top: 18px;
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        gap: 14px;
+      }
+
+      .card {
+        grid-column: span 12;
+        border-radius: var(--radius);
+        border: 1px solid var(--border);
+        background: var(--card);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+        overflow: hidden;
+      }
+
+      .card .hd {
+        padding: 14px 16px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        justify-content: space-between;
+        background: rgba(0, 0, 0, 0.12);
+      }
+
+      .title {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 800;
+        letter-spacing: 0.2px;
+      }
+
+      .dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--brand2);
+        box-shadow: 0 0 0 6px rgba(34, 197, 94, 0.14);
+      }
+
+      .card .bd {
+        padding: 16px;
+        color: var(--muted);
+        line-height: 1.65;
+      }
+
+      .btnrow {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 12px;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 10px 12px;
+        border-radius: 12px;
+        border: 1px solid var(--border);
+        background: rgba(255, 255, 255, 0.07);
+        color: var(--text);
+        font-weight: 750;
+        font-size: 13px;
+      }
+
+      .btn.primary {
+        background: linear-gradient(135deg, var(--brand), #2563eb);
+        border-color: rgba(255, 255, 255, 0.18);
+      }
+      .btn.safe {
+        background: linear-gradient(135deg, #16a34a, #22c55e);
+        border-color: rgba(255, 255, 255, 0.18);
+      }
+      .btn.danger {
+        background: linear-gradient(135deg, #ef4444, #f97316);
+        border-color: rgba(255, 255, 255, 0.18);
+      }
+
+      .cols2 {
+        grid-column: span 12;
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        gap: 14px;
+      }
+      .span6 {
+        grid-column: span 12;
+      }
+
+      ul {
+        margin: 10px 0 0;
+        padding-left: 18px;
+      }
+      li {
+        margin: 6px 0;
+      }
+
+      .footer {
+        margin-top: 18px;
+        text-align: center;
+        color: rgba(238, 242, 255, 0.55);
+        font-size: 12px;
+      }
+
+      @media (min-width: 860px) {
+        .span6 {
+          grid-column: span 6;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="topbar">
+        <div class="brand">
+          <div class="logo">MA</div>
+          <div>
+            Medical Assistant
+            <div style="font-size: 12px; color: rgba(238, 242, 255, 0.6)">
+              Support • Platforms • Data Deletion
+            </div>
+          </div>
+        </div>
+        <div class="nav">
+          <a class="chip" href="./index.html">Home</a>
+          <a class="chip" href="./support.html">Support</a>
+          <a class="chip" href="./delete_data.html">Delete Data</a>
+          <a class="chip" href="./delete-account.html">Delete Account</a>
+          <a class="chip" href="./privacy.html">Privacy</a>
+          <a class="chip" href="./terms.html">Terms</a>
+        </div>
+      </div>
+
+      <section class="hero">
+        <h1>Support Center</h1>
+        <p>
+          Need help with Medical Assistant? Contact support, review features, or
+          request data/account deletion. This page is designed to work on
+          Android, iOS, and Web.
+        </p>
+      </section>
+
+      <section class="grid">
+        <div class="card">
+          <div class="hd">
+            <div class="title"><span class="dot"></span> Contact Support</div>
+            <span class="chip">Response: 24–48 hrs (Mon–Fri)</span>
+          </div>
+          <div class="bd">
+            <div>
+              <strong>Email:</strong>
+              <a href="mailto:zub165@yahoo.com">zub165@yahoo.com</a>
+            </div>
+            <div style="margin-top: 8px">
+              If you’re requesting deletion, please include your account email,
+              app platform (Android/iOS/Web), and any relevant screenshots.
+            </div>
+            <div class="btnrow">
+              <a class="btn primary" href="mailto:zub165@yahoo.com"
+                >Email Support</a
+              >
+              <a class="btn" href="https://github.com/zub165/AI-Agent-"
+                target="_blank" rel="noreferrer"
+                >GitHub Repository</a
+              >
+            </div>
+          </div>
+        </div>
+
+        <div class="cols2">
+          <div class="card span6">
+            <div class="hd">
+              <div class="title">Platforms</div>
+            </div>
+            <div class="bd">
+              <ul>
+                <li>
+                  <strong>Web:</strong>
+                  <a href="https://zub165.github.io/AI-Agent-/" target="_blank" rel="noreferrer"
+                    >zub165.github.io/AI-Agent-/</a
+                  >
+                </li>
+                <li>
+                  <strong>Android:</strong>
+                  <a
+                    href="https://play.google.com/store/apps/details?id=com.newgen.medical_assistant"
+                    target="_blank"
+                    rel="noreferrer"
+                    >Google Play Store</a
+                  >
+                </li>
+                <li>
+                  <strong>iOS:</strong>
+                  <a
+                    href="https://apps.apple.com/ca/app/medical-assitant/id6744702938"
+                    target="_blank"
+                    rel="noreferrer"
+                    >Apple App Store</a
+                  >
+                </li>
+              </ul>
+              <div class="btnrow">
+                <a
+                  class="btn safe"
+                  href="https://play.google.com/store/apps/details?id=com.newgen.medical_assistant"
+                  target="_blank"
+                  rel="noreferrer"
+                  >Open Android</a
+                >
+                <a
+                  class="btn primary"
+                  href="https://apps.apple.com/ca/app/medical-assitant/id6744702938"
+                  target="_blank"
+                  rel="noreferrer"
+                  >Open iOS</a
+                >
+                <a
+                  class="btn"
+                  href="https://zub165.github.io/AI-Agent-/"
+                  target="_blank"
+                  rel="noreferrer"
+                  >Open Web</a
+                >
+              </div>
+            </div>
+          </div>
+
+          <div class="card span6">
+            <div class="hd">
+              <div class="title">Key Features</div>
+            </div>
+            <div class="bd">
+              <ul>
+                <li><strong>3‑stage medical conversation:</strong> Quick triage → interactive intake questions → full assessment with sources.</li>
+                <li><strong>RAG grounded answers:</strong> Responses reference curated datasets and official resources.</li>
+                <li><strong>Multilingual:</strong> Responds in the patient’s language (when supported).</li>
+                <li><strong>Voice:</strong> Listen to key sections like Quick Triage.</li>
+                <li><strong>Safety-first:</strong> Clear “GO NOW” emergency guidance for red-flag symptoms.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="cols2">
+          <div class="card span6">
+            <div class="hd">
+              <div class="title">Delete Data</div>
+            </div>
+            <div class="bd">
+              Use the in-app options or follow the steps on our deletion page.
+              <div class="btnrow">
+                <a class="btn danger" href="./delete_data.html">Delete Data Instructions</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="card span6">
+            <div class="hd">
+              <div class="title">Delete Account</div>
+            </div>
+            <div class="bd">
+              If you want your account removed, follow the account deletion page or contact support.
+              <div class="btnrow">
+                <a class="btn danger" href="./delete-account.html">Delete Account</a>
+                <a class="btn primary" href="mailto:zub165@yahoo.com">Email Support</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="footer">
+        © <span id="y"></span> Innovators Generation • Medical Assistant (Support)
+      </div>
     </div>
 
-    <div class="section">
-      <h2>📚 Documentation & Developer Resources</h2>
-      <p>Visit our full documentation site for API reference, setup instructions, and integration help:</p>
-      <ul>
-        <li><a href="https://zub165.github.io/aiagent-support" target="_blank">AI Agent Developer Docs</a></li>
-        <li><a href="https://github.com/zub165/aiagent-support" target="_blank">Source Code & Releases</a></li>
-      </ul>
-    </div>
-
-    <div class="section">
-      <h2>🔧 Troubleshooting</h2>
-      <p>Common issues and how to resolve them:</p>
-      <ul>
-        <li><strong>Can't connect to API:</strong> Ensure your endpoint is reachable and port 5002 is open.</li>
-        <li><strong>Invalid session ID:</strong> Always pass a unique <code>session_id</code> in your requests.</li>
-        <li><strong>No response from AI:</strong> Check for backend crashes or malformed JSON.</li>
-      </ul>
-    </div>
-
-    <div class="section">
-      <h2>🧠 FAQs</h2>
-      <ul>
-        <li><strong>Is AI Agent a real doctor?</strong> No. AI Agent provides educational and assistive content, not medical diagnoses.</li>
-        <li><strong>Does AI Agent store my data?</strong> No, unless you're using a custom server integration.</li>
-        <li><strong>Can I use this app offline?</strong> Partial offline support is available for cached answers and local features.</li>
-      </ul>
-    </div>
-
-    <div class="section">
-      <h2>📌 Current Version</h2>
-      <p><strong>App Version:</strong> 1.0.0<br>
-         <strong>Backend Version:</strong> 1.0.0<br>
-         <strong>Last Updated:</strong> April 16, 2025
-      </p>
-    </div>
-
-    <div class="footer">
-      &copy; 2025 AI Agent by Innovators Generation. All rights reserved.
-    </div>
-  </div>
-</body>
+    <script>
+      document.getElementById("y").textContent = new Date().getFullYear();
+    </script>
+  </body>
 </html>
