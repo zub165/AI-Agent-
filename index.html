@@ -24,22 +24,44 @@
             </div>
         </div>
     </div>
-    <div class="chat-container">
-        <div class="chat-header">
-            <h2>AI Assistant</h2>
-            <div class="status-indicator">
-                <span class="status-dot"></span>
-                <span class="status-text">Online</span>
+    <div class="app-shell">
+        <div class="panel hero">
+            <div class="hero-badge">Medical Assistant • Safety-first • Multiplatform</div>
+            <div class="hero-title">Talk to Medical Assistant</div>
+            <div class="hero-subtitle">
+                Quick triage → a few follow-up questions → a full assessment with sources.
+                This website is a lightweight demo; for the full experience use the mobile app.
+            </div>
+            <div class="hero-actions">
+                <button class="pill primary" type="button" id="intro-btn">What is Medical Assistant?</button>
+                <button class="pill" type="button" id="how-btn">How it works</button>
+                <button class="pill ghost" type="button" id="privacy-btn">Privacy & Safety</button>
+            </div>
+            <div class="hero-actions" style="margin-top: 10px;">
+                <a class="pill" href="./support.html">Support</a>
+                <a class="pill" href="./delete_data.html">Delete Data</a>
+                <a class="pill" href="./privacy.html">Privacy Policy</a>
+                <a class="pill" href="./terms.html">Terms of Use</a>
             </div>
         </div>
-        <div class="chat-box" id="chat-box">
-            <!-- Chat messages will be dynamically added here -->
-        </div>
-        <div class="chat-input">
-            <input type="text" id="user-input" placeholder="Type your message..." autocomplete="off">
-            <button id="send-btn" onclick="sendMessage()">
-                <i class="fas fa-paper-plane"></i>
-            </button>
+
+        <div class="chat-container">
+            <div class="chat-header">
+                <h2>AI Assistant</h2>
+                <div class="status-indicator">
+                    <span class="status-dot"></span>
+                    <span class="status-text">Online</span>
+                </div>
+            </div>
+            <div class="chat-box" id="chat-box">
+                <div class="quick-row" id="quick-row" style="display:none;"></div>
+            </div>
+            <div class="chat-input">
+                <input type="text" id="user-input" placeholder="Type your message..." autocomplete="off">
+                <button id="send-btn" onclick="sendMessage()">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
         </div>
     </div>
     <div style="position: fixed; left: 0; right: 0; bottom: 12px; display: flex; justify-content: center; padding: 0 12px;">
