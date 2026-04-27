@@ -66,19 +66,30 @@ function _closeVoiceOverlay() {
 
 function _welcomeScriptText() {
     return [
-        "Welcome to Medical Assistant.",
-        "I can help you understand symptoms, ask a few follow-up questions, and provide a safety-first assessment with trusted medical sources.",
-        "I’m not a doctor and I can’t diagnose you, but I can help you decide what to do next.",
-        "If you have severe symptoms like chest pain, trouble breathing, stroke signs, heavy bleeding, or fainting, please seek emergency care right away.",
+        "Welcome — I’m AI Agent, your smart medical companion.",
+        "I’m designed to support both patients and professionals with health-related questions, condition overviews, and first-aid guidance in real time.",
+        "I can ask a few follow-up questions and give safety-first next steps with trusted references.",
+        "Disclaimer: I don’t provide medical diagnosis or replace professional consultation.",
+        "For emergencies, contact a licensed physician or your local emergency number.",
         "Tell me what’s going on today."
     ].join(" ");
 }
 
 function _introText() {
     return [
-        "Medical Assistant is designed to feel like a real triage conversation.",
-        "You tell me what’s going on, I ask a few targeted questions, then I summarize what might be happening and what to do next.",
-        "In the mobile app, the final assessment includes clickable sources from official medical references."
+        "AI Agent is your smart medical companion designed to support both patients and professionals.",
+        "Powered by advanced language models, it helps you navigate health-related questions, understand conditions, and get first-aid guidance in real time.",
+        "",
+        "Key Features:",
+        "• Instant medical Q&A powered by AI",
+        "• First-aid assistance and symptom checker",
+        "• Multilingual support",
+        "• Offline fallback and local memory (when enabled)",
+        "• Secure and customizable API integration",
+        "",
+        "Whether you're managing chronic conditions or just need quick advice, AI Agent offers support tailored to your language and needs.",
+        "",
+        "Disclaimer: This app does not provide medical diagnosis or replace professional consultation. For emergencies, contact a licensed physician or your local emergency number."
     ].join("\n");
 }
 
