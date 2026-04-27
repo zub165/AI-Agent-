@@ -1,4 +1,6 @@
 const VOICE_WELCOME_KEY = "ma_voice_welcome_enabled_v1";
+const ANDROID_APP_URL = "https://play.google.com/store/apps/details?id=com.newgen.medical_assistant";
+const IOS_APP_URL = "https://apps.apple.com/ca/app/medical-assitant/id6744702938";
 
 function _appendAiMessage(text) {
     const chatBox = document.getElementById('chat-box');
@@ -16,6 +18,14 @@ function _appendUserMessage(text) {
     userMessageElement.textContent = text;
     chatBox.appendChild(userMessageElement);
     chatBox.scrollTop = chatBox.scrollHeight;
+}
+
+function _downloadPromptText() {
+    return [
+        "For the smartest experience (interactive questions, full assessment, and sources), please download the Medical Assistant app:",
+        `• Android: ${ANDROID_APP_URL}`,
+        `• iOS: ${IOS_APP_URL}`
+    ].join("\n");
 }
 
 function _setQuickChips(chips) {
@@ -176,7 +186,7 @@ function sendMessage() {
     // Simulate AI response (replace with actual API call)
     setTimeout(() => {
         const lower = userMessage.toLowerCase();
-        let response = `Thanks — tell me a bit more.\n\n- How long has this been going on?\n- How severe is it (0–10)?\n- Any red flags (fainting, severe shortness of breath, weakness on one side, severe bleeding)?`;
+        let response = _downloadPromptText();
 
         if (lower.includes("what") && (lower.includes("medical assistant") || lower.includes("this"))) {
             response = _introText();
@@ -184,6 +194,8 @@ function sendMessage() {
             response = _howItWorksText();
         } else if (lower.includes("privacy") || lower.includes("data") || lower.includes("delete")) {
             response = _privacySafetyText();
+        } else if (lower.includes("android") || lower.includes("iphone") || lower.includes("ios") || lower.includes("download")) {
+            response = _downloadPromptText();
         }
 
         _appendAiMessage(response);
