@@ -93,9 +93,10 @@ body {
 /* Chat Container */
 .chat-container {
     width: 100%;
-    max-width: 500px;
+    max-width: 720px;
+    min-height: 560px;
     background: rgba(255,255,255,0.92);
-    border-radius: 18px;
+    border-radius: 28px;
     box-shadow: 0 18px 60px rgba(0, 0, 0, 0.28);
     border: 1px solid rgba(255,255,255,0.18);
     backdrop-filter: blur(10px);
@@ -108,13 +109,14 @@ body {
 .chat-header {
     background: linear-gradient(135deg, #6a11cb, #2575fc);
     color: #fff;
-    padding: 15px 20px;
+    padding: 18px 22px;
     text-align: center;
     position: relative;
+    border-bottom: 1px solid rgba(255,255,255,0.16);
 }
 
 .chat-header h2 {
-    font-size: 1.5rem;
+    font-size: 1.65rem;
     margin: 0;
 }
 
@@ -231,7 +233,7 @@ body {
 @media (max-width: 600px) {
     .chat-container {
         border-radius: 0;
-        height: 100vh;
+        min-height: 76vh;
         max-width: 100%;
     }
 

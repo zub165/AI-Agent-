@@ -87,8 +87,8 @@ function _welcomeScriptText() {
 
 function _introText() {
     return [
-        "AI Agent is your smart medical companion designed to support both patients and professionals.",
-        "Powered by advanced language models, it helps you navigate health-related questions, understand conditions, and get first-aid guidance in real time.",
+        "Medical Assistant is your smart medical companion designed to support both patients and professionals.",
+        "Powered by advanced language models, it helps you navigate health-related questions, understand conditions, and receive first-aid guidance in real time.",
         "",
         "Key Features:",
         "• Instant medical Q&A powered by AI",
@@ -97,9 +97,19 @@ function _introText() {
         "• Offline fallback and local memory (when enabled)",
         "• Secure and customizable API integration",
         "",
-        "Whether you're managing chronic conditions or just need quick advice, AI Agent offers support tailored to your language and needs.",
+        "Whether you're managing chronic conditions or just need quick advice, Medical Assistant offers support tailored to your language and needs.",
         "",
         "Disclaimer: This app does not provide medical diagnosis or replace professional consultation. For emergencies, contact a licensed physician or your local emergency number."
+    ].join("\n");
+}
+
+function _initialChatIntro() {
+    return [
+        "Welcome to Medical Assistant.",
+        "",
+        _introText(),
+        "",
+        "Tip: For the full experience (interactive questions, full assessment, and sources), download the app from the links below."
     ].join("\n");
 }
 
@@ -163,7 +173,7 @@ function _initVoiceWelcome() {
     skipBtn.addEventListener("click", () => {
         localStorage.setItem(VOICE_WELCOME_KEY, "false");
         _closeVoiceOverlay();
-        _appendAiMessage("Welcome to Medical Assistant.\nTell me your main symptom (for example: headache, cough, chest pain).");
+        _appendAiMessage(_initialChatIntro());
         _setQuickChips([
             { label: "What is it?", onClick: () => _appendAiMessage(_introText()) },
             { label: "How it works", onClick: () => _appendAiMessage(_howItWorksText()) },
