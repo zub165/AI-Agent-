@@ -15,6 +15,78 @@ body {
     padding: 20px;
 }
 
+/* Voice Welcome Overlay */
+.voice-welcome {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 18px;
+    background: rgba(17, 24, 39, 0.55);
+    backdrop-filter: blur(6px);
+    z-index: 9999;
+}
+
+.voice-welcome.hidden {
+    display: none;
+}
+
+.voice-card {
+    width: 100%;
+    max-width: 520px;
+    background: rgba(255, 255, 255, 0.92);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 18px;
+    box-shadow: 0 18px 50px rgba(0, 0, 0, 0.22);
+    padding: 18px 18px 16px;
+}
+
+.voice-title {
+    font-size: 18px;
+    font-weight: 800;
+    color: #111827;
+    margin-bottom: 6px;
+}
+
+.voice-subtitle {
+    font-size: 13px;
+    line-height: 1.45;
+    color: rgba(17, 24, 39, 0.75);
+    margin-bottom: 12px;
+}
+
+.voice-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.voice-btn {
+    appearance: none;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    background: #ffffff;
+    color: #111827;
+    border-radius: 12px;
+    padding: 10px 12px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.voice-btn:hover {
+    background: rgba(0, 0, 0, 0.03);
+}
+
+.voice-btn-primary {
+    border: none;
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
+    color: #fff;
+}
+
+.voice-btn-primary:hover {
+    filter: brightness(1.03);
+}
+
 /* Chat Container */
 .chat-container {
     width: 100%;

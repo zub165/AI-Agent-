@@ -8,6 +8,22 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
+    <div id="voice-welcome" class="voice-welcome" aria-live="polite">
+        <div class="voice-card">
+            <div class="voice-title">Welcome to Medical Assistant</div>
+            <div class="voice-subtitle">
+                Enable voice to hear a short introduction. (Browsers require a tap to play audio.)
+            </div>
+            <div class="voice-actions">
+                <button id="enable-voice-btn" class="voice-btn voice-btn-primary" type="button">
+                    Enable Voice Welcome
+                </button>
+                <button id="skip-voice-btn" class="voice-btn" type="button">
+                    Skip
+                </button>
+            </div>
+        </div>
+    </div>
     <div class="chat-container">
         <div class="chat-header">
             <h2>AI Assistant</h2>
