@@ -28,6 +28,13 @@ function _downloadPromptText() {
     ].join("\n");
 }
 
+function _downloadPromptSpoken() {
+    return [
+        "For the full Medical Assistant experience, please download the app.",
+        "You’ll find the Android and iOS links on this page."
+    ].join(" ");
+}
+
 function _setQuickChips(chips) {
     const row = document.getElementById("quick-row");
     if (!row) return; // optional (only present in some layouts)
@@ -81,6 +88,7 @@ function _welcomeScriptText() {
         "I can ask a few follow-up questions and give safety-first next steps with trusted references.",
         "Disclaimer: I don’t provide medical diagnosis or replace professional consultation.",
         "For emergencies, contact a licensed physician or your local emergency number.",
+        _downloadPromptSpoken(),
         "Tell me what’s going on today."
     ].join(" ");
 }
@@ -109,7 +117,9 @@ function _initialChatIntro() {
         "",
         _introText(),
         "",
-        "Tip: For the full experience (interactive questions, full assessment, and sources), download the app from the links below."
+        "Download links:",
+        `• Android: ${ANDROID_APP_URL}`,
+        `• iOS: ${IOS_APP_URL}`
     ].join("\n");
 }
 
