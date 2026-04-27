@@ -30,7 +30,7 @@ function _downloadPromptText() {
 
 function _setQuickChips(chips) {
     const row = document.getElementById("quick-row");
-    if (!row) return;
+    if (!row) return; // optional (only present in some layouts)
     row.innerHTML = "";
     if (!chips || chips.length === 0) {
         row.style.display = "none";
